@@ -23,7 +23,7 @@ public:
             }
             if (s[i] == '+' || s[i] == '-')
             {
-                if (!opStack.empty() && (opStack.top() == '+' || opStack.top() == '-'))
+                if (!opStack.empty() && isOperator(opStack.top()))
                 {
                     right = op(numStack.top(), right, opStack.top());
                     numStack.pop();
@@ -45,12 +45,11 @@ public:
             }
             if (s[i] == ')')
             {
-                char _op = opStack.top();
-                if (_op == '+' || _op == '-')
+                if (isOperator(opStack.top()))
                 {
-                    opStack.pop();
-                    right  = op(numStack.top(), right, _op);
+                    right  = op(numStack.top(), right, opStack.top());
                     numStack.pop();
+                    opStack.pop();
                 }
                 opStack.pop();  // pop '('
             }
@@ -67,6 +66,11 @@ public:
     long long op(long long left, long long right, char op)
     {
         return (op == '+') ? left + right : left - right;
+    }
+
+    bool isOperator(char op)
+    {
+        return (op == '+' || op == '-');
     }
 };
 
