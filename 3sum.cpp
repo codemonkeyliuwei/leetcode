@@ -1,19 +1,45 @@
 #include <iostream>
 #include <assert.h>
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
+using namespace std::tr1;
 
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        vector<vector<int>> out;
+        vector<vector<int>> triplets;
         if (nums.size() < 3)
         {
-            return out;
+            return triplets;
         }
-        return out;
+
+        for (unsigned int i = 0; i < nums.size() - 2; ++i)
+        {
+            for (unsigned int j = i+1; j < nums.size(); ++j)
+            {
+                unordered_map<int, int>::iterator it = HashMap.find(-nums[i]-nums[j]);
+                if (it != HashMap.end())
+                {
+                    vector<int> triplet;
+                    triplet.push_back(nums[i]);
+                    triplet.push_back(nums[j]);
+                    triplet.push_back(nums[it->second]);
+                    triplets.push_back(triplet);
+                }
+                else
+                {
+                    HashMap.insert(make_pair<int,int>(nums[j], j));
+                }
+            }
+            HashMap.clear();
+        }
+
+        return triplets;
     }
+private:
+    unordered_map<int, int> HashMap;
 };
 
 int main(int argc, char **argv)
