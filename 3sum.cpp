@@ -45,16 +45,16 @@ public:
                     triplet.push_back(nums[k]);
                     triplets.push_back(triplet);
                     
-                    while (j < nums.size() - 1 && nums[j] == nums[j+1])
+                    ++j;
+                    --k;
+                    while (j < nums.size() - 1 && nums[j] == nums[j-1])
                     {
                         ++j;
                     }
-                    while (k > 0 && nums[k] == nums[k-1])
+                    while (k > 0 && nums[k] == nums[k+1])
                     {
                         --k;
                     }
-                    ++j;
-                    //--k;
                 }
             }
             while (i < nums.size() - 2 && nums[i] == nums[i+1])
